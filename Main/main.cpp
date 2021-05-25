@@ -2,7 +2,6 @@
 
 
 #include "../Entities/Haina.h"
-
 #include "../Entities/Haina.cpp"
 //#include "../Entities/Umeras.h"
 #include "../Services/HaineManager.h"
