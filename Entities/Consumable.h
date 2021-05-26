@@ -21,6 +21,6 @@ public:
     void setProcent(int nr){cantitate = nr;}
     void spray(int nr){cantitate -= nr;}
     void setFull(){cantitate = 100;}
-    bool operator ==(Consumable c);
+    bool operator==(Consumable c) const;
 };
 #endif //DULAPP_CONSUMABLE_H

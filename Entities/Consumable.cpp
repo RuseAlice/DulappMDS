@@ -9,10 +9,10 @@ Consumable::Consumable() {
 }
 
 Consumable::Consumable(string nume, int cantitate) {
-    nume = nume;
-    cantitate = cantitate;
+    this->nume = nume;
+    this->cantitate = cantitate;
 }
 
-bool Consumable::operator ==(Consumable c){
-    return nume==c.nume && cantitate == c.cantitate;
+bool Consumable::operator==(Consumable c) const{
+    return this->nume==c.nume && this->cantitate==c.cantitate;
 }

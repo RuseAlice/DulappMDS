@@ -1,6 +1,4 @@
 #include <iostream>
-
-
 #include "../Entities/Haina.h"
 #include "../Entities/Haina.cpp"
 //#include "../Entities/Umeras.h"
@@ -13,6 +11,7 @@
 #include <thread>
 #include <map>
 #include <curl/curl.h>
+
 using namespace std;
 int main(int argc, char **argv) {
 
