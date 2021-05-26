@@ -18,6 +18,21 @@ void HaineManager::introducereHaina(string denumire, PiesaVestimentara piesa, Cu
         cout<<"Dulapul este deja plin, nu mai exista umerase disponibile";
     }
 }
+
+void HaineManager::introducereHaina(Haina h){
+    int ok=0;
+    for(int i=1;i<=this->nrUmerase;i++){
+        if(haine.find(i)==haine.end()){
+            haine.insert(pair<int, Haina>(i, h));
+            ok=1;
+            break;
+        }
+    }
+    if(ok==0){
+        cout<<"Dulapul este deja plin, nu mai exista umerase disponibile";
+    }
+}
+
 void HaineManager::editareHaina(Haina haina, string denumire, PiesaVestimentara piesa, Culoare cul, Stil stil, Material mat){
 
     for ( auto &item : haine){
@@ -145,5 +160,9 @@ void HaineManager::creareTinuta(bool jacheta, bool piesaUnica, int piesa1, int p
     }
 }
 void HaineManager::reintroducereHaina(int nr){
-    getHaine().find(nr)->second.setDisponibilitate(true);
+
+    Haina h = getHaine().find(nr)->second;
+    h.setDisponibilitate(true);
+    stergereHaina(getHaine().find(nr)->second);
+    introducereHaina(h);
 }
