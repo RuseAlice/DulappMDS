@@ -118,3 +118,29 @@ void HaineManager::generareTinuta(float temperatura, bool precipitatii, Stil sti
 
     }
 }
+void HaineManager::creareTinuta(bool jacheta, bool piesaUnica, int piesa1, int piesa2, int piesa3){
+    Haina haine_alese[3];
+    int nr_haine;
+    if(jacheta){
+        haine_alese[0]=getHaine().find(piesa1)->second;
+        if(piesaUnica){
+            haine_alese[1]=getHaine().find(piesa2)->second;
+            nr_haine=2;
+        }else{
+            haine_alese[1]=getHaine().find(piesa2)->second;
+            haine_alese[2]=getHaine().find(piesa3)->second;
+            nr_haine=3;
+        }
+    }else if(piesaUnica){
+        haine_alese[0]=getHaine().find(piesa1)->second;
+        nr_haine=1;
+    }else{
+        haine_alese[0]=getHaine().find(piesa1)->second;
+        haine_alese[1]=getHaine().find(piesa2)->second;
+        nr_haine=2;
+    }
+    for(int i=0;i<nr_haine;i++){
+        haine_alese[i].setDisponibilitate(false);
+        haine_alese[i].setNrPurtari(haine_alese[i].getNrPurtari()+1);
+    }
+}
