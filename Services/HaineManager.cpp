@@ -144,3 +144,6 @@ void HaineManager::creareTinuta(bool jacheta, bool piesaUnica, int piesa1, int p
         haine_alese[i].setNrPurtari(haine_alese[i].getNrPurtari()+1);
     }
 }
+void HaineManager::reintroducereHaina(int nr){
+    getHaine().find(nr)->second.setDisponibilitate(true);
+}
