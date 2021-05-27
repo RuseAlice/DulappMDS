@@ -6,6 +6,8 @@
 #include <thread>
 #include <chrono>
 
+DulapManager::DulapManager() {}
+
 DulapManager::DulapManager(string numeDezinfectant, string numeParfum){
     apa.setFull();
     apa.setNume("apa");
@@ -18,7 +20,6 @@ DulapManager::DulapManager(string numeDezinfectant, string numeParfum){
 bool DulapManager::spray(Consumable& c) {
     if (c.getProcent() > 0) {
         c.spray(2);
-        std::cout << "Spray " << c.getNume() << ", " << c.getProcent() << "\n";
         return true;
     }
     return false;
@@ -30,5 +31,4 @@ void DulapManager::sprayThread(int timer, Consumable& c){
             std::this_thread::sleep_for(std::chrono::seconds(timer));
         else break;
     }
-    std::cout << "I died tragically. \n";
 }
