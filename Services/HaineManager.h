@@ -11,7 +11,17 @@ class HaineManager {
 private:
     int nrUmerase;
     map<int,Haina> haine;
+    inline static HaineManager *manager;
+    HaineManager(map<int,Haina> h, int nr);
+
 public:
+    static HaineManager *getManager() {
+        map<int, Haina> h;
+        if (!manager)
+            manager = new HaineManager(h, 20);
+        return manager;
+    }
+
     void setNrUmerase(int nr){nrUmerase=nr;}
     int getNrUmerase(){return nrUmerase;}
     map<int,Haina> getHaine(){return haine;}
@@ -21,7 +31,6 @@ public:
     void editareHaina(Haina haina, string denumire, PiesaVestimentara piesa, Culoare cul, Stil stil, Material mat);
     void vizualizareHaina(Haina haina);
     void stergereHaina(Haina haina);
-    HaineManager(map<int,Haina> h, int nr);
     void generareTinuta(float temperatura, bool precipitatii, Stil stil);
     void creareTinuta(bool jacheta, bool piesaUnica, int piesa1, int piesa2=-1, int piesa3=-1);
     void reintroducereHaina(int nr);

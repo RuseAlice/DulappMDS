@@ -4,6 +4,8 @@
 #include <iostream>
 #include "HaineManager.h"
 using namespace std;
+//HaineManager HaineManager::*manager=NULL;
+
 void HaineManager::introducereHaina(string denumire, PiesaVestimentara piesa, Culoare cul, Stil stil, Material mat){
     Haina haina(denumire, piesa, cul, stil, mat);
     int ok=0;
