@@ -35,10 +35,10 @@ void HaineManager::introducereHaina(Haina h){
     }
 }
 
-void HaineManager::editareHaina(Haina haina, string denumire, PiesaVestimentara piesa, Culoare cul, Stil stil, Material mat){
+void HaineManager::editareHaina(int umeras, string denumire, PiesaVestimentara piesa, Culoare cul, Stil stil, Material mat){
 
     for ( auto &item : haine){
-        if(item.second==haina){
+        if(item.first==umeras){
             item.second.setDenumire(denumire);
             item.second.setPiesaVestimentara(piesa);
             item.second.setCuloare(cul);
@@ -57,6 +57,9 @@ void HaineManager::stergereHaina(Haina haina){
         if(item.second==haina)
             idx=item.first;
     }
+    haine.erase(idx);
+}
+void HaineManager::stergereHaina(int idx){
     haine.erase(idx);
 }
 HaineManager::HaineManager(map<int,Haina> h, int nr){
@@ -159,7 +162,7 @@ void HaineManager::creareTinuta(bool jacheta, bool piesaUnica, int piesa1, int p
         haine_alese[1]=getHaine().find(piesa2)->second;
         nr_haine=2;
     }
-    for(int i=0;i<nr_haine;i++){
+
 //        haine_alese[i].setDisponibilitate(false);
 //        haine_alese[i].setNrPurtari(haine_alese[i].getNrPurtari()+1);
         if(piesa1>=0)
@@ -168,8 +171,11 @@ void HaineManager::creareTinuta(bool jacheta, bool piesaUnica, int piesa1, int p
             scoatereHaina(piesa2);
         if(piesa3>=0)
             scoatereHaina(piesa3);
+        for(int i=0;i<nr_haine;i++){
+            cout<<haine_alese[i].afisare()<<"\n";
+        }
 
-    }
+
 }
 void HaineManager::scoatereHaina(int nr){
 

@@ -70,20 +70,43 @@ int main(int argc, char **argv) {
     haine.insert(pair<int, Haina>(10,h10));
     haine.insert(pair<int, Haina>(11,h11));
     haine.insert(pair<int, Haina>(12,h12));
-    HaineManager haineManager(haine,20);
-   
-    haineManager.introducereHaina("rochie neagra", piesaUnica, Negru, sport, bumbac);
-    
-    haineManager.introducereHaina("vesta de fas", jacheta,Negru, sport, fas);
-    
-    haineManager.introducereHaina("rochie neagra", piesaUnica, Negru, sport, bumbac);
-    haineManager.editareHaina(h1, "helanca", top, Bej,casual, poliester);
-//    for(auto &item:haineManager.getHaine()){
+//    HaineManager haineManager(haine,20);
+//
+//    haineManager.introducereHaina("rochie neagra", piesaUnica, Negru, sport, bumbac);
+//
+//    haineManager.introducereHaina("vesta de fas", jacheta,Negru, sport, fas);
+//
+//    haineManager.introducereHaina("rochie neagra", piesaUnica, Negru, sport, bumbac);
+//    haineManager.editareHaina(h1, "helanca", top, Bej,casual, poliester);
+//
+    HaineManager *haineManager=haineManager->getManager();
+
+    haineManager->introducereHaina("rochie neagra", piesaUnica, Negru, sport, bumbac);
+
+    haineManager->introducereHaina("vesta de fas", jacheta,Negru, sport, fas);
+
+    haineManager->introducereHaina("blugi", pantaloni, Albastru, casual, denim);
+    haineManager->introducereHaina("tricou flori", top, Mov,casual, bumbac);
+    haineManager->introducereHaina("geaca fas", jacheta,Albastru, casual, fas);
+    haineManager->introducereHaina("blugi rupti", pantaloni, Gri, sport, denim);
+    haineManager->introducereHaina("camasa cu volane", top, Negru, casual, poliester);
+    haineManager->introducereHaina("haina de blana", jacheta,Bej, casual, poliester);
+    haineManager->introducereHaina("salopeta matasoasa", piesaUnica, Portocaliu, formal, matase);
+    haineManager->introducereHaina("fusta plisata", pantaloni, Gri, formal, stofa);
+    haineManager->scoatereHaina(2);
+    haineManager->scoatereHaina(5);
+    haineManager->scoatereHaina(7);
+
+
+
+    haineManager->editareHaina(3, "helanca", top, Bej,casual, poliester);
+
+//    for(auto &item:haineManager->getHaine()){
 //        cout<<item.first<<": "<<item.second.afisare()<<'\n';
 //    }
 
-    //CLI *cli=new CLI();
-    //cli->mainMenu(0);
+    CLI *cli=new CLI();
+    cli->mainMenu(0);
 
 
 //REINTRODUCERE HAINA
@@ -98,7 +121,9 @@ int main(int argc, char **argv) {
 //    for(auto &item: haineManager.getHaine()){
 //            cout<<item.first<<": "<<item.second.afisare()<<"\n";
 //    }
-
+//    for(auto &item: haineManager->getHaine()){
+//        cout<<item.first<<": "<<item.second.afisare()<<"\n";
+//    }
 //int umerase[3]={-1,-1,-1};
 //bool jacheta;
 //bool piesaUnica;
@@ -108,7 +133,7 @@ int main(int argc, char **argv) {
 //cout<<"O singura piesa?";
 //cin>>piesaUnica;
 //if(jacheta){
-//    for(auto &item:haineManager.getHaine()){
+//    for(auto &item:haineManager->getHaine()){
 //        if(item.second.getPiesaVestimentara()==jacheta)
 //            cout<<item.first<<": "<<item.second.afisare()<<"\n";
 //    }
@@ -116,36 +141,45 @@ int main(int argc, char **argv) {
 //    nr_articole++;
 //}
 //if(piesaUnica){
-//    for(auto &item:haineManager.getHaine()){
+//    for(auto &item:haineManager->getHaine()){
 //        if(item.second.getPiesaVestimentara()==piesaUnica)
 //            cout<<item.first<<": "<<item.second.afisare()<<"\n";
 //    }
 //    cin>>umerase[nr_articole];
 //    nr_articole++;
 //}else{
-//    for(auto &item:haineManager.getHaine()){
+//    for(auto &item:haineManager->getHaine()){
 //        if(item.second.getPiesaVestimentara()==top)
 //            cout<<item.first<<": "<<item.second.afisare()<<"\n";
 //    }
 //    cin>>umerase[nr_articole];
 //    nr_articole++;
-//    for(auto &item:haineManager.getHaine()){
+//    for(auto &item:haineManager->getHaine()){
 //        if(item.second.getPiesaVestimentara()==pantaloni)
 //            cout<<item.first<<": "<<item.second.afisare()<<"\n";
 //    }
 //    cin>>umerase[nr_articole];
 //    nr_articole++;
 //}
-//haineManager.creareTinuta(jacheta, piesaUnica,umerase[0], umerase[1], umerase[2]);
+//haineManager->creareTinuta(jacheta, piesaUnica,umerase[0], umerase[1], umerase[2]);
 //
-//    for(auto &item: haineManager.getHaine()){
+//    for(auto &item: haineManager->getHaine()){
 //            cout<<item.first<<": "<<item.second.afisare()<<"\n";
 //    }
 
 
-haineManager.generareTinuta(20, false, casual);
-    for(auto &item: haineManager.getHaine()){
-        cout<<item.first<<": "<<item.second.afisare()<<"\n";
-    }
+//haineManager.generareTinuta(20, false, casual);
+//    for(auto &item: haineManager.getHaine()){
+//        cout<<item.first<<": "<<item.second.afisare()<<"\n";
+//    }
+
+
+//
+//haineManager->generareTinuta(20, false, casual);
+//    for(auto &item: haineManager->getHaine()){
+//        cout<<item.first<<": "<<item.second.afisare()<<"\n";
+//    }
+
+
     return 0;
 }

@@ -13,7 +13,10 @@ private:
     string nume;
     int cantitate;
 public:
-    Consumable();
+    Consumable(){
+        nume = "";
+        cantitate = 0;
+    }
     Consumable(string nume, int cantitate);
     string getNume(){return nume;}
     int getProcent(){return cantitate;}

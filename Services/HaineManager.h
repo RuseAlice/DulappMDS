@@ -28,9 +28,10 @@ public:
     void setHaine(map<int, Haina> h){haine.swap(h);}
     void introducereHaina(string denumire, PiesaVestimentara piesa, Culoare cul, Stil stil, Material mat);
     void introducereHaina(Haina h);
-    void editareHaina(Haina haina, string denumire, PiesaVestimentara piesa, Culoare cul, Stil stil, Material mat);
+    void editareHaina(int umeras, string denumire, PiesaVestimentara piesa, Culoare cul, Stil stil, Material mat);
     void vizualizareHaina(Haina haina);
     void stergereHaina(Haina haina);
+    void stergereHaina(int idx);
     void generareTinuta(float temperatura, bool precipitatii, Stil stil);
     void creareTinuta(bool jacheta, bool piesaUnica, int piesa1, int piesa2=-1, int piesa3=-1);
     void reintroducereHaina(int nr);

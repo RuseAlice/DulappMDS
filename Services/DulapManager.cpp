@@ -6,7 +6,7 @@
 #include <thread>
 #include <chrono>
 
-DulapManager::DulapManager() {}
+//DulapManager::DulapManager() {}
 
 DulapManager::DulapManager(string numeDezinfectant, string numeParfum){
     apa.setFull();
@@ -19,7 +19,8 @@ DulapManager::DulapManager(string numeDezinfectant, string numeParfum){
 
 bool DulapManager::spray(Consumable& c) {
     if (c.getProcent() > 0) {
-        c.spray(2);
+        c.spray(20);
+        cout<<c.getNume()<<" fas fas!! --"<<c.getProcent()<< "% \n";
         return true;
     }
     return false;

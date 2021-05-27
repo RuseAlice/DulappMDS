@@ -12,7 +12,7 @@ private:
     Consumable dezinfectant;
     Consumable parfum;
 public:
-    DulapManager();
+    DulapManager(){}
     DulapManager(string numeDezinfectant, string numeParfum);
     Consumable& getApa(){return apa;}
     Consumable& getDezinfectant(){return dezinfectant;}

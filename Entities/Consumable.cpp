@@ -3,10 +3,10 @@
 //
 #include "Consumable.h"
 
-Consumable::Consumable() {
-    nume = "";
-    cantitate = 0;
-}
+//Consumable::Consumable() {
+//    nume = "";
+//    cantitate = 0;
+//}
 
 Consumable::Consumable(string nume, int cantitate) {
     this->nume = nume;

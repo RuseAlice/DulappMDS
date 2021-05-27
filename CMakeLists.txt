@@ -37,3 +37,4 @@ add_executable(tests Main/tests.cpp
         )
 
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain Threads::Threads)
+target_link_libraries(Dulapp PRIVATE Threads::Threads)

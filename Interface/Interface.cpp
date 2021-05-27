@@ -8,6 +8,8 @@
 #include <iostream>
 #include <limits>
 #include <fstream>
+#include <thread>
+#include "../Services/DulapManager.h"
 
 using std::numeric_limits;
 
@@ -16,7 +18,8 @@ void CLI::mainMenu(const int &menuPage) {
     std::ofstream myFile("Logfile.txt");
 
     int newPage = -1;
-    //HaineManager hm(10);
+    HaineManager *hm=hm->getManager();
+    DulapManager dm= DulapManager("Dettol","Khalis");
     switch (menuPage) {
         case 0: {
             if (this->lang == en) {
@@ -54,14 +57,14 @@ void CLI::mainMenu(const int &menuPage) {
                           << "Introdu unul dintre numerele comenzilor de mai jos!\n";
                 std::cout << "1. Consultă recomandările de ținute pentru azi.\n" <<
                           "2. Verifică starea meteo.\n" <<
-                          "3. Vezi evenimentele imediat viitoare.\n" <<
+                          "3. Creeaza o tinuta.\n" <<
                           "4. Modifcă articolele din dulap.\n" <<
                           "5. Vezi umerașele.\n" <<
                           "6. Accesează setările.\n";
                 for (;;) {
                     std::cout << "Așadar, ce alegi? ";
                     if (std::cin >> newPage && newPage > 0 && newPage < 7) {
-                        std::cout << "Success!/n/n";
+                        //std::cout << "Success!/n/n";
                         if (newPage == 1) myFile << "1. Consultă recomandările de ținute pentru azi.\n";
                         else if (newPage == 2) myFile << "2. Verifică starea meteo.\n";
                         else if (newPage == 3) myFile << "3. Vezi evenimentele imediat viitoare.\n";
@@ -80,94 +83,75 @@ void CLI::mainMenu(const int &menuPage) {
             break;
         }
         case 1: {
-            int weatherFilter = 0;
-            int eventFilter = 0;
-            if (this->lang == en) {
-                std::cout
-                        << "If you'd like an outfit recommendation based on the weather today, apply one of the filters below:\n";
-                std::cout << "1. ice cold, harsh winter, heavy snowing\n" <<
-                          "2. cold winter, mild snowing or no snowing at all\n" <<
-                          "3. very cold autumn, strong wind, heavy rain\n" <<
-                          "4. regular to soft fall, maybe windy and a little rainy\n" <<
-                          "5. cool spring, cloudy sky, breezy or even muggy\n" <<
-                          "6. warm spring, sunny and pleasant, low humidity\n" <<
-                          "7. average summer, hot and bright, clear skies\n" <<
-                          "8. burning hot, boiling summer, sweaty heatwaves\n";
-                std::cout << "Select the line that best describes today's weather by entering its number!\n" <<
-                          "Be careful! Entering any number outside the list will not apply any filter! ";
-                std::cin >> weatherFilter;
-                if (weatherFilter == 1) myFile << "1. ice cold, harsh winter, heavy snowing\n";
-                else if (weatherFilter == 2) myFile << "2. cold winter, mild snowing or no snowing at all\n";
-                else if (weatherFilter == 3) myFile << "3. very cold autumn, strong wind, heavy rain\n";
-                else if (weatherFilter == 4) myFile << "4. regular to soft fall, maybe windy and a little rainy\n";
-                else if (weatherFilter == 5) myFile << "5. cool spring, cloudy sky, breezy or even muggy\n";
-                else if (weatherFilter == 6) myFile << "6. warm spring, sunny and pleasant, low humidity\n";
-                else if (weatherFilter == 7) myFile << "7. average summer, hot and bright, clear skies\n";
-                else if (weatherFilter == 8) myFile << "8. burning hot, boiling summer, sweaty heatwaves\n";
+            float temp;
+            bool precipitatii;
+            int stil;
+            cout<<"Care este temperatura de astazi?";
+            cin>>temp;
+            cout<<"Sunt anuntate precipitatii?";
+            cin>>precipitatii;
 
-                std::cout << "If you'd like an outfit recommendation based on the event you're attending today, apply one of the filters below:\n";
-                std::cout << "1. sports and physical activities\n" <<
-                          "2. casual, leisure activities\n" <<
-                          "3. professional, business setting\n" <<
-                          "4. cocktail party, clubbing\n" <<
-                          "5. simple but formal events\n" <<
-                          "6. fancy, glamorous, highly sophisticated occasions\n";
-                std::cout << "Select the line that best describes today's plans by entering its number!\n" <<
-                          "Be careful! Entering any number outside the list will not apply any filter! ";
-                std::cin >> eventFilter;
-                if (eventFilter == 1) myFile << "1. sports and physical activities\n";
-                else if (eventFilter == 2) myFile << "2. casual, leisure activities\n";
-                else if (eventFilter == 3) myFile << "3. professional, business setting\n";
-                else if (eventFilter == 4) myFile << "4. cocktail party, clubbing\n";
-                else if (eventFilter == 5) myFile << "5. simple but formal events\n";
-                else if (eventFilter == 6) myFile << "6. fancy, glamorous, highly sophisticated occasions\n";
-
-            } else {
-                std::cout
-                        << "Aplică unul dintre filtrele de mai jos pentru a primi recomandări pe baza condițiilor meteo:\n";
-                std::cout << "1. iarnă agresivă, ninsori puternice, gheață\n" <<
-                          "2. iarnă friguroasă, ninsoare blândă\n" <<
-                          "3. toamnă rece, vânt puternic, ploaie abundentă\n" <<
-                          "4. toamnă obișnuită, vânt și ploaie ușoare\n" <<
-                          "5. primăvară răcoroasă, cer înnorat, vreme umedă\n" <<
-                          "6. primăvară călduroasă, senin și plăcut, vreme uscată\n" <<
-                          "7. vară obișnuită, călduroasă și luminoasă, cer limpede\n" <<
-                          "8. vară deosebit de fierbinte, valuri copleșitoare de căldură\n";
-                std::cout << "Selectează cea mai fidelă descriere a vremii de afară introducând numărul ei!\n" <<
-                          "Atenție! Dacă tastezi un număr ce nu corespunde niciunei descrieri, nu voi putea aplica niciun filtru! ";
-                std::cin >> weatherFilter;
-                if (weatherFilter == 1) myFile << "1. ice cold, harsh winter, heavy snowing\n";
-                else if (weatherFilter == 2) myFile << "2. cold winter, mild snowing or no snowing at all\n";
-                else if (weatherFilter == 3) myFile << "3. very cold autumn, strong wind, heavy rain\n";
-                else if (weatherFilter == 4) myFile << "4. regular to soft fall, maybe windy and a little rainy\n";
-                else if (weatherFilter == 5) myFile << "5. cool spring, cloudy sky, breezy or even muggy\n";
-                else if (weatherFilter == 6) myFile << "6. warm spring, sunny and pleasant, low humidity\n";
-                else if (weatherFilter == 7) myFile << "7. average summer, hot and bright, clear skies\n";
-                else if (weatherFilter == 8) myFile << "8. burning hot, boiling summer, sweaty heatwaves\n";
-
-                std::cout
-                        << "Aplică unul dintre filtrele de mai jos pentru a primi recomandări pe baza activității tale de astăzi:\n";
-                std::cout << "1. sport, activități fizice \n" <<
-                          "2. activități comune și comode\n" <<
-                          "3. mediu profesional, zi de muncă la birou\n" <<
-                          "4. petrecere de club, discotecă\n" <<
-                          "5. eveniment simplu, dar formal\n" <<
-                          "6. ocazie ceremonioasă, sofisticată, tip gală\n";
-                std::cout << "Selectează cea mai fidelă descriere a programului tău introducând numărul ei!\n" <<
-                          "Atenție! Dacă tastezi un număr ce nu corespunde niciunei descrieri, nu voi putea aplica niciun filtru! ";
-                std::cin >> eventFilter;
-                if (eventFilter == 1) myFile << "1. sports and physical activities\n";
-                else if (eventFilter == 2) myFile << "2. casual, leisure activities\n";
-                else if (eventFilter == 3) myFile << "3. professional, business setting\n";
-                else if (eventFilter == 4) myFile << "4. cocktail party, clubbing\n";
-                else if (eventFilter == 5) myFile << "5. simple but formal events\n";
-                else if (eventFilter == 6) myFile << "6. fancy, glamorous, highly sophisticated occasions\n";
+            for (;;) {
+                cout<<"Care este stilul pe care il doresti astazi?";
+                std::cout << "1. casual\n 2. sport\n 3. business\n 4. formal\n";
+                if (std::cin >> stil && stil > 0 && stil < 5) {
+                    break;
+                } else {
+                    std::cin.clear();
+                    std::cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+                }
             }
+            hm->generareTinuta(temp, precipitatii, (Stil)stil);
+
+
             break;
         }
         case 2: //nu tine de menu interface, te trimite la aplicatia/ site ul cu prognoze
             break;
-        case 3: //nu tine de menu interface, te trimite la evenimentele din Google Calendar
+        case 3: {
+            int umerase[3]={-1,-1,-1};
+            bool jacheta;
+            bool piesaUnica;
+            int nr_articole=0;
+            cout<<"Doriti jacheta?";
+            cin>>jacheta;
+            cout<<"O singura piesa?";
+            cin>>piesaUnica;
+            if(jacheta){
+                for(auto &item:hm->getHaine()){
+                    if(item.second.getPiesaVestimentara()==jacheta)
+                        cout<<item.first<<": "<<item.second.afisare()<<"\n";
+                }
+                cin>>umerase[nr_articole];
+                nr_articole++;
+            }
+            if(piesaUnica){
+                for(auto &item:hm->getHaine()){
+                    if(item.second.getPiesaVestimentara()==piesaUnica)
+                        cout<<item.first<<": "<<item.second.afisare()<<"\n";
+                }
+                cin>>umerase[nr_articole];
+                nr_articole++;
+            }else{
+                for(auto &item:hm->getHaine()){
+                    if(item.second.getPiesaVestimentara()==top)
+                        cout<<item.first<<": "<<item.second.afisare()<<"\n";
+                }
+                cin>>umerase[nr_articole];
+                nr_articole++;
+                for(auto &item:hm->getHaine()){
+                    if(item.second.getPiesaVestimentara()==pantaloni)
+                        cout<<item.first<<": "<<item.second.afisare()<<"\n";
+                }
+                cin>>umerase[nr_articole];
+                nr_articole++;
+            }
+            hm->creareTinuta(jacheta, piesaUnica,umerase[0], umerase[1], umerase[2]);
+
+
+
+            break;
+        }
             break;
         case 4: {
             int contentAction = 0;
@@ -196,9 +180,10 @@ void CLI::mainMenu(const int &menuPage) {
                 std::cout << "1. Adaug un nou articol vestimentar.\n";
                 std::cout << "2. Editez un articol vestimentar cunoscut.\n";
                 std::cout << "3. Elimin un articol vestimentar.\n";
+                std::cout << "4. Adaug un articol existent.\n";
                 for (;;) {
                     std::cout << "Introdu numărul acțiunii ca să știu și eu ce faci! ";
-                    if (std::cin >> contentAction && contentAction > 0 && contentAction < 4) {
+                    if (std::cin >> contentAction && contentAction > 0 && contentAction < 5) {
                         switch (contentAction) {
                             case 1:
                             {
@@ -251,20 +236,120 @@ void CLI::mainMenu(const int &menuPage) {
                                         std::cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
                                     }
                                 }
-                                //hm.introducereHaina(nume, (PiesaVestimentara) piesa, (Culoare) culoare, (Stil) stil,(Material) material);
+                                hm->introducereHaina(nume, (PiesaVestimentara) piesa, (Culoare) culoare, (Stil) stil,(Material) material);
+                                for(auto &item: hm->getHaine()){
+                                    cout<<item.first<<" "<<item.second.afisare()<<'\n';
+                                }
                                 break;
                             }
                             case 2:{
-//                                cout<<"Alege numarul umeului pe care se afla articolul vestimentar pe care vrei sa-l editezi!";
-//                                for(auto &item: hm.getHaine()){
-//                                    cout<<item.first.getIndex()<<" "<<item.second.afisare()<<'\n';
-//                                }
-//                                if (std::cin >> nrUmeras && nrUmeras > 0 && piesa < 5)
-//TODO
+                                cout<<"Alege numarul umerasului pe care se afla articolul vestimentar pe care vrei sa-l editezi!";
+                                for(auto &item: hm->getHaine()){
+                                    cout<<item.first<<" "<<item.second.afisare()<<'\n';
+                                }
+                                int nrUmeras;
+                                std::string nume;
+                                int culoare;
+                                int material;
+                                int stil;
+                                int piesa;
+                                for(;;){
+                                    if (std::cin >> nrUmeras && nrUmeras > 0 && nrUmeras < hm->getNrUmerase()){
+                                        break;
+                                    }else {
+                                        std::cin.clear();
+                                        std::cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+                                    }
+                                }
+
+                                std::cout << "Introdu noua denumire a articolului vestimentar: ";
+                                std::cin >> nume;
+                                for (;;) {
+                                    std::cout << "Alege noua culoare a articolului vestimentar: ";
+                                    std::cout << "1. Alb\n 2. Negru\n 3. Albastru\n 4. Verde\n 5. Galben\n "
+                                              << "6. Rosu\n 7. Portocaliu\n 8. Bleumarin\n 9. Gri\n 10. Bej\n 11. Maro\n 12. Mov\n";
+                                    if (std::cin >> culoare && culoare > 0 && culoare < 13) {
+                                        break;
+                                    } else {
+                                        std::cin.clear();
+                                        std::cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+                                    }
+                                }
+                                for (;;) {
+                                    std::cout << "Alege noul material al articolului vestimentar: ";
+                                    std::cout << "1. poliester\n 2. bumbac\n 3. stofa\n 4. denim\n 5. matase\n "
+                                              << "6. in\n 7. fas\n 8. lana\n";
+                                    if (std::cin >> material && material > 0 && material < 9) {
+                                        break;
+                                    } else {
+                                        std::cin.clear();
+                                        std::cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+                                    }
+                                }
+                                for (;;) {
+                                    std::cout << "Alege noul stil al articolului vestimentar: ";
+                                    std::cout << "1. casual\n 2. sport\n 3. business\n 4. formal\n";
+                                    if (std::cin >> stil && stil > 0 && stil < 5) {
+                                        break;
+                                    } else {
+                                        std::cin.clear();
+                                        std::cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+                                    }
+                                }
+                                for (;;) {
+                                    std::cout << "Alege piesa articolului vestimentar: ";
+                                    std::cout << "1. jacheta\n 2. top\n 3. pantaloni\n 4. piesa unica\n";
+                                    if (std::cin >> piesa && piesa > 0 && piesa < 5) {
+                                        break;
+                                    } else {
+                                        std::cin.clear();
+                                        std::cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+                                    }
+                                }
+                                hm->editareHaina(nrUmeras, nume, (PiesaVestimentara) piesa, (Culoare) culoare, (Stil) stil,(Material) material);
+                                for(auto &item: hm->getHaine()){
+                                    cout<<item.first<<" "<<item.second.afisare()<<'\n';
+                                }
+                                break;
 
                             }
                             case 3:{
+                                cout<<"Alege numarul umerasului pe care se afla articolul vestimentar pe care vrei sa-l indepartezi!";
+                                for(auto &item: hm->getHaine()){
+                                    cout<<item.first<<" "<<item.second.afisare()<<'\n';
+                                }
+                                int nrUmeras;
+                                for(;;){
+                                    if (std::cin >> nrUmeras && nrUmeras > 0 && nrUmeras < hm->getNrUmerase()){
+                                        break;
+                                    }else {
+                                        std::cin.clear();
+                                        std::cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+                                    }
+                                }
+                                hm->stergereHaina(nrUmeras);
+                                for(auto &item: hm->getHaine()){
+                                    cout<<item.first<<" "<<item.second.afisare()<<'\n';
+                                }
+                                break;
 
+                            }
+                            case 4:{
+                                for(auto &item: hm->getHaine()){
+                                    if(item.second.getDisponibilitate()== false)
+                                        cout<<item.first<<": "<<item.second.afisare()<<"\n";
+                                }
+                                int nr;
+                                cout<<"Alegeti nr hainei pe care doriti sa o intorduceti: ";
+                                cin>>nr;
+                                hm->reintroducereHaina(nr);
+                                    for(auto &item: hm->getHaine()){
+                                            cout<<item.first<<": "<<item.second.afisare()<<"\n";
+                                    }
+                                    for(auto &item: hm->getHaine()){
+                                        cout<<item.first<<": "<<item.second.afisare()<<"\n";
+                                    }
+                                break;
                             }
                         }
 
@@ -283,10 +368,92 @@ void CLI::mainMenu(const int &menuPage) {
             break;
         }
 
-        case 5: //metoda de a afisa umerasele cu status liber/ ocupat
+        case 5: {
+            for(int i=1;i<=hm->getNrUmerase();i++){
+                if(hm->getHaine().find(i)==hm->getHaine().end()){
+                    cout<<i<<": umerasul este gol \n";
+                }else{
+                    if(hm->getHaine().find(i)->second.getDisponibilitate()){
+                        cout<<i<<": "<<hm->getHaine().find(i)->second.afisare()<<"\n";
+                    }else{
+                        cout<<i<<": umerasul este gol \n";
+                    }
+                }
+            }
+
             break;
-        case 6: //vezi starea consumabilelor?
+        }//metoda de a afisa umerasele cu status liber/ ocupat
+
+        case 6: {
+            cout<<"Alege actiunea dorita:";
+            cout<<"1.Starea consumabilelor \n 2.Spray acum \n 3.Set timer";
+            int actiune;
+            for(;;){
+                if (std::cin >> actiune && actiune > 0 && actiune < 4) {
+                        switch(actiune){
+                            case 1:{
+                                cout<<"Apa: "<<dm.getApa().getProcent()<<"% \n";
+                                cout<<"Dezinfectant: "<<dm.getDezinfectant().getProcent()<<"% \n";
+                                cout<<"Parfum: "<<dm.getParfum().getProcent()<<"% \n";
+                                break;
+                            }
+                            case 2:{
+                                int parfum;
+                                cout<<"Cu ce doresti sa pulverizezi?\n 1.Dezinfectant\n 2.Parfum\n";
+                                for(;;){
+                                    if (std::cin >> parfum && parfum > 0 && parfum < 3){
+                                        if(parfum==1){
+                                            dm.spray(dm.getDezinfectant());
+                                        }else{
+                                            dm.spray(dm.getParfum());
+                                        }
+                                        break;
+                                    }else{
+                                        std::cout << "Alege doar unul din numerele afisate! \342\230\272" << std::endl;
+                                        std::cin.clear();
+                                    }
+                                }
+
+                                break;
+                            }
+                            case 3:{
+                                int parfum;
+                                int interv;
+                                cout<<"Introdu intervalul pe care il doresti intre pulverizari(nr de secunde)";
+                                cin>>interv;
+                                cout<<"Cu ce doresti sa pulverizezi?\n 1.Dezinfectant\n 2.Parfum\n";
+                                for(;;){
+                                    if (std::cin >> parfum && parfum > 0 && parfum < 3){
+                                        if(parfum==1){
+
+                                            std::thread t1 = std::thread(&DulapManager::sprayThread, &dm, interv, std::ref(dm.getDezinfectant()));
+                                            t1.join();
+
+                                        }else{
+                                            std::thread t1 = std::thread(&DulapManager::sprayThread, &dm, interv, std::ref(dm.getParfum()));
+                                            t1.join();
+                                        }
+                                        break;
+                                    }else{
+                                        std::cout << "Alege doar unul din numerele afisate! \342\230\272" << std::endl;
+                                        std::cin.clear();
+                                    }
+
+                                break;
+                            }
+                        }
+                        }
+                    break;
+                } else{
+                    std::cout << "Alege doar unul din numerele afisate! \342\230\272" << std::endl;
+                    std::cin.clear();
+                }
+            }
+
+
             break;
+        }
+
     }
     mainMenu(newPage);
     myFile.close();
