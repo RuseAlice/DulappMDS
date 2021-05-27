@@ -17,11 +17,15 @@ public:
     map<int,Haina> getHaine(){return haine;}
     void setHaine(map<int, Haina> h){haine.swap(h);}
     void introducereHaina(string denumire, PiesaVestimentara piesa, Culoare cul, Stil stil, Material mat);
+    void introducereHaina(Haina h);
     void editareHaina(Haina haina, string denumire, PiesaVestimentara piesa, Culoare cul, Stil stil, Material mat);
     void vizualizareHaina(Haina haina);
     void stergereHaina(Haina haina);
     HaineManager(map<int,Haina> h, int nr);
     void generareTinuta(float temperatura, bool precipitatii, Stil stil);
+    void creareTinuta(bool jacheta, bool piesaUnica, int piesa1, int piesa2=-1, int piesa3=-1);
+    void reintroducereHaina(int nr);
+    void scoatereHaina(int nr);
 
 };
 #endif //DULAPP_HAINEMANAGER_H

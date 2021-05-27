@@ -18,6 +18,21 @@ void HaineManager::introducereHaina(string denumire, PiesaVestimentara piesa, Cu
         cout<<"Dulapul este deja plin, nu mai exista umerase disponibile";
     }
 }
+
+void HaineManager::introducereHaina(Haina h){
+    int ok=0;
+    for(int i=1;i<=this->nrUmerase;i++){
+        if(haine.find(i)==haine.end()){
+            haine.insert(pair<int, Haina>(i, h));
+            ok=1;
+            break;
+        }
+    }
+    if(ok==0){
+        cout<<"Dulapul este deja plin, nu mai exista umerase disponibile";
+    }
+}
+
 void HaineManager::editareHaina(Haina haina, string denumire, PiesaVestimentara piesa, Culoare cul, Stil stil, Material mat){
 
     for ( auto &item : haine){
@@ -66,6 +81,8 @@ void HaineManager::generareTinuta(float temperatura, bool precipitatii, Stil sti
                     haine_alese[nr_haine] = item.second;
                     nr_haine++;
                     break;
+                }else{
+                    cout<<"Nu s-a gasit nicio jeacheta!";
                 }
     }
     bool piesa_gasita=false;
@@ -117,4 +134,53 @@ void HaineManager::generareTinuta(float temperatura, bool precipitatii, Stil sti
         }
 
     }
+}
+void HaineManager::creareTinuta(bool jacheta, bool piesaUnica, int piesa1, int piesa2, int piesa3){
+    Haina haine_alese[3];
+    int nr_haine;
+    if(jacheta){
+        haine_alese[0]=getHaine().find(piesa1)->second;
+        if(piesaUnica){
+            haine_alese[1]=getHaine().find(piesa2)->second;
+            nr_haine=2;
+        }else{
+            haine_alese[1]=getHaine().find(piesa2)->second;
+            haine_alese[2]=getHaine().find(piesa3)->second;
+            nr_haine=3;
+        }
+    }else if(piesaUnica){
+        haine_alese[0]=getHaine().find(piesa1)->second;
+
+        nr_haine=1;
+    }else{
+        haine_alese[0]=getHaine().find(piesa1)->second;
+        haine_alese[1]=getHaine().find(piesa2)->second;
+        nr_haine=2;
+    }
+    for(int i=0;i<nr_haine;i++){
+//        haine_alese[i].setDisponibilitate(false);
+//        haine_alese[i].setNrPurtari(haine_alese[i].getNrPurtari()+1);
+        if(piesa1>=0)
+            scoatereHaina(piesa1);
+        if(piesa2>=0)
+            scoatereHaina(piesa2);
+        if(piesa3>=0)
+            scoatereHaina(piesa3);
+
+    }
+}
+void HaineManager::scoatereHaina(int nr){
+
+    Haina h = getHaine().find(nr)->second;
+    h.setDisponibilitate(false);
+    h.setNrPurtari(h.getNrPurtari()+1);
+    stergereHaina(getHaine().find(nr)->second);
+    introducereHaina(h);
+}
+void HaineManager::reintroducereHaina(int nr){
+
+    Haina h = getHaine().find(nr)->second;
+    h.setDisponibilitate(true);
+    stergereHaina(getHaine().find(nr)->second);
+    introducereHaina(h);
 }
