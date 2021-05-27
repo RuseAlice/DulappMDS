@@ -10,9 +10,16 @@
 #include <fstream>
 #include <thread>
 #include "../Services/DulapManager.h"
+#include "../Services/JSONHandler.h"
+#include <curl/curl.h>
+#include <regex>
 
 using std::numeric_limits;
-
+static size_t WriteCallBack(void *contents, size_t size, size_t nmemb, void *userp)
+{
+    ((std::string*)userp)->append((char*)contents, size * nmemb);
+    return size * nmemb;
+}
 void CLI::mainMenu(const int &menuPage) {
 
     std::ofstream myFile("Logfile.txt");
@@ -20,6 +27,10 @@ void CLI::mainMenu(const int &menuPage) {
     int newPage = -1;
     HaineManager *hm=hm->getManager();
     DulapManager dm= DulapManager("Dettol","Khalis");
+    bool continua=true;
+    while(continua){
+
+
     switch (menuPage) {
         case 0: {
             if (this->lang == en) {
@@ -106,7 +117,63 @@ void CLI::mainMenu(const int &menuPage) {
 
             break;
         }
-        case 2: //nu tine de menu interface, te trimite la aplicatia/ site ul cu prognoze
+        case 2: {
+
+            CURL *curl;
+            CURLcode res;
+            std::string readBuffer;
+            std::string locationInput;
+
+            bool ok = false;
+            std::cout << "Please input your location in this exact format: Bucharest,ro\n";
+
+            while (!ok) {
+                std::cin >> locationInput;
+                if (std::regex_match(locationInput, std::regex("^[A-Z][a-z]+[,]([a-z]{2})$"))) {
+                    ok = true;
+                }
+                else {
+                    std::cout << "Please try again. Example: Focsani,ro\n";
+                }
+            }
+
+            curl_global_init(CURL_GLOBAL_DEFAULT);
+
+            std::string requestChunk1 = "pro.openweathermap.org/data/2.5/weather?q=";
+            std::string requestChunk2 = "&APPID=e564a233be5f06b32ca4763b2bcda304&units=metric";
+            std::string requestFull = requestChunk1 + locationInput + requestChunk2;
+
+            int n = requestFull.length();
+            char weatherParam[n+1];
+            strcpy(weatherParam,requestFull.c_str());
+
+            curl = curl_easy_init();
+            if (curl){
+                curl_easy_setopt(curl, CURLOPT_URL, weatherParam);
+                curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+                curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
+                curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallBack);
+                curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
+
+                res = curl_easy_perform(curl);
+
+//        std::cout << readBuffer;
+
+                json jsonBuffer = JSONHandler::getJSONFromString(readBuffer);
+                std::string::size_type sz;
+                double temperatura = std::stod(to_string(jsonBuffer["main"]["temp"]), &sz);
+                std::cout << "\nTemperatura este: " << temperatura << " C\n";
+
+                if (res != CURLE_OK) {
+                    std::cout << stderr << " curl failed\n" << curl_easy_strerror(res);
+                }
+                curl_easy_cleanup(curl);
+
+            }
+
+            curl_global_cleanup();
+            break;
+        }
             break;
         case 3: {
             int umerase[3]={-1,-1,-1};
@@ -454,6 +521,9 @@ void CLI::mainMenu(const int &menuPage) {
             break;
         }
 
+    }
+    cout<<"Mai vrei sa faci ceva?";
+    cin>>continua;
     }
     mainMenu(newPage);
     myFile.close();
