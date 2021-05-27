@@ -70,6 +70,15 @@ int main(int argc, char **argv) {
     haine.insert(pair<int, Haina>(10,h10));
     haine.insert(pair<int, Haina>(11,h11));
     haine.insert(pair<int, Haina>(12,h12));
+    haine.insert(pair<int, Haina>(13,h13));
+    haine.insert(pair<int, Haina>(14,h14));
+    haine.insert(pair<int, Haina>(15,h15));
+    haine.insert(pair<int, Haina>(16,h16));
+    haine.insert(pair<int, Haina>(17,h17));
+    haine.insert(pair<int, Haina>(18,h18));
+    haine.insert(pair<int, Haina>(19,h19));
+    haine.insert(pair<int, Haina>(20,h20));
+
 //    HaineManager haineManager(haine,20);
 //
 //    haineManager.introducereHaina("rochie neagra", piesaUnica, Negru, sport, bumbac);
@@ -78,13 +87,11 @@ int main(int argc, char **argv) {
 //
 //    haineManager.introducereHaina("rochie neagra", piesaUnica, Negru, sport, bumbac);
 //    haineManager.editareHaina(h1, "helanca", top, Bej,casual, poliester);
-//
+
     HaineManager *haineManager=haineManager->getManager();
 
     haineManager->introducereHaina("rochie neagra", piesaUnica, Negru, sport, bumbac);
-
     haineManager->introducereHaina("vesta de fas", jacheta,Negru, sport, fas);
-
     haineManager->introducereHaina("blugi", pantaloni, Albastru, casual, denim);
     haineManager->introducereHaina("tricou flori", top, Mov,casual, bumbac);
     haineManager->introducereHaina("geaca fas", jacheta,Albastru, casual, fas);
@@ -93,6 +100,14 @@ int main(int argc, char **argv) {
     haineManager->introducereHaina("haina de blana", jacheta,Bej, casual, poliester);
     haineManager->introducereHaina("salopeta matasoasa", piesaUnica, Portocaliu, formal, matase);
     haineManager->introducereHaina("fusta plisata", pantaloni, Gri, formal, stofa);
+    haineManager->introducereHaina("helanca", top, Bej, casual, poliester);
+    haineManager->introducereHaina("hanorac cu gluga", jacheta, Verde, sport, bumbac);
+    haineManager->introducereHaina("vesta de fas", jacheta, Negru, sport, fas);
+    haineManager->introducereHaina("tricou polo", top, Galben, sport, bumbac);
+    haineManager->introducereHaina("camasa simpla", top, Alb, formal, bumbac);
+    haineManager->introducereHaina("ie traiditionala", top, Alb, formal, in);
+    haineManager->introducereHaina("sacou", jacheta, Bleumarin, business, lana);
+    haineManager->introducereHaina("rochie rosie", piesaUnica, Rosu, formal, fas);
     haineManager->scoatereHaina(2);
     haineManager->scoatereHaina(5);
     haineManager->scoatereHaina(7);
