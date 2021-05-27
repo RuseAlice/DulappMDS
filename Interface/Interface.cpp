@@ -28,9 +28,6 @@ void CLI::mainMenu(const int &menuPage) {
     HaineManager *hm=hm->getManager();
     DulapManager dm= DulapManager("Dettol","Khalis");
     bool continua=true;
-    while(continua){
-
-
     switch (menuPage) {
         case 0: {
             if (this->lang == en) {
@@ -522,9 +519,7 @@ void CLI::mainMenu(const int &menuPage) {
         }
 
     }
-    cout<<"Mai vrei sa faci ceva?";
-    cin>>continua;
-    }
+
     mainMenu(newPage);
     myFile.close();
 }
