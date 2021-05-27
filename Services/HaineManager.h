@@ -25,6 +25,7 @@ public:
     void generareTinuta(float temperatura, bool precipitatii, Stil stil);
     void creareTinuta(bool jacheta, bool piesaUnica, int piesa1, int piesa2=-1, int piesa3=-1);
     void reintroducereHaina(int nr);
+    void scoatereHaina(int nr);
 
 };
 #endif //DULAPP_HAINEMANAGER_H

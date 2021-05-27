@@ -54,6 +54,10 @@ int main(int argc, char **argv) {
 //    std::thread t2 = std::thread(&DulapManager::sprayThread, &DM, 0.1, std::ref(DM.getDezinfectant()));
 //    t1.join();
 //    t2.join();
+//    h3.setDisponibilitate(false);
+//    h4.setDisponibilitate(false);
+//    h5.setDisponibilitate(false);
+//    h6.setDisponibilitate(false);
     map<int, Haina> haine;
     haine.insert(haine.begin(), pair<int, Haina>(1,h1));
     haine.insert(pair<int, Haina>(2,h2));
@@ -75,16 +79,74 @@ int main(int argc, char **argv) {
     
     haineManager.introducereHaina("rochie neagra", piesaUnica, Negru, sport, bumbac);
     haineManager.editareHaina(h1, "helanca", top, Bej,casual, poliester);
-    for(auto &item:haineManager.getHaine()){
-        cout<<item.first<<": "<<item.second.afisare()<<'\n';
-    }
-    
+//    for(auto &item:haineManager.getHaine()){
+//        cout<<item.first<<": "<<item.second.afisare()<<'\n';
+//    }
+
     //CLI *cli=new CLI();
     //cli->mainMenu(0);
 
 
+//REINTRODUCERE HAINA
+//for(auto &item: haineManager.getHaine()){
+//    if(item.second.getDisponibilitate()== false)
+//        cout<<item.first<<": "<<item.second.afisare()<<"\n";
+//}
+//int nr;
+//cout<<"Alegeti nr hainei pe care doriti sa o intorduceti: ";
+//cin>>nr;
+//haineManager.reintroducereHaina(nr);
+//    for(auto &item: haineManager.getHaine()){
+//            cout<<item.first<<": "<<item.second.afisare()<<"\n";
+//    }
+
+//int umerase[3]={-1,-1,-1};
+//bool jacheta;
+//bool piesaUnica;
+//int nr_articole=0;
+//cout<<"Doriti jacheta?";
+//cin>>jacheta;
+//cout<<"O singura piesa?";
+//cin>>piesaUnica;
+//if(jacheta){
+//    for(auto &item:haineManager.getHaine()){
+//        if(item.second.getPiesaVestimentara()==jacheta)
+//            cout<<item.first<<": "<<item.second.afisare()<<"\n";
+//    }
+//    cin>>umerase[nr_articole];
+//    nr_articole++;
+//}
+//if(piesaUnica){
+//    for(auto &item:haineManager.getHaine()){
+//        if(item.second.getPiesaVestimentara()==piesaUnica)
+//            cout<<item.first<<": "<<item.second.afisare()<<"\n";
+//    }
+//    cin>>umerase[nr_articole];
+//    nr_articole++;
+//}else{
+//    for(auto &item:haineManager.getHaine()){
+//        if(item.second.getPiesaVestimentara()==top)
+//            cout<<item.first<<": "<<item.second.afisare()<<"\n";
+//    }
+//    cin>>umerase[nr_articole];
+//    nr_articole++;
+//    for(auto &item:haineManager.getHaine()){
+//        if(item.second.getPiesaVestimentara()==pantaloni)
+//            cout<<item.first<<": "<<item.second.afisare()<<"\n";
+//    }
+//    cin>>umerase[nr_articole];
+//    nr_articole++;
+//}
+//haineManager.creareTinuta(jacheta, piesaUnica,umerase[0], umerase[1], umerase[2]);
+//
+//    for(auto &item: haineManager.getHaine()){
+//            cout<<item.first<<": "<<item.second.afisare()<<"\n";
+//    }
 
 
-
+haineManager.generareTinuta(20, false, casual);
+    for(auto &item: haineManager.getHaine()){
+        cout<<item.first<<": "<<item.second.afisare()<<"\n";
+    }
     return 0;
 }

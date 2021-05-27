@@ -81,6 +81,8 @@ void HaineManager::generareTinuta(float temperatura, bool precipitatii, Stil sti
                     haine_alese[nr_haine] = item.second;
                     nr_haine++;
                     break;
+                }else{
+                    cout<<"Nu s-a gasit nicio jeacheta!";
                 }
     }
     bool piesa_gasita=false;
@@ -148,6 +150,7 @@ void HaineManager::creareTinuta(bool jacheta, bool piesaUnica, int piesa1, int p
         }
     }else if(piesaUnica){
         haine_alese[0]=getHaine().find(piesa1)->second;
+
         nr_haine=1;
     }else{
         haine_alese[0]=getHaine().find(piesa1)->second;
@@ -155,9 +158,24 @@ void HaineManager::creareTinuta(bool jacheta, bool piesaUnica, int piesa1, int p
         nr_haine=2;
     }
     for(int i=0;i<nr_haine;i++){
-        haine_alese[i].setDisponibilitate(false);
-        haine_alese[i].setNrPurtari(haine_alese[i].getNrPurtari()+1);
+//        haine_alese[i].setDisponibilitate(false);
+//        haine_alese[i].setNrPurtari(haine_alese[i].getNrPurtari()+1);
+        if(piesa1>=0)
+            scoatereHaina(piesa1);
+        if(piesa2>=0)
+            scoatereHaina(piesa2);
+        if(piesa3>=0)
+            scoatereHaina(piesa3);
+
     }
+}
+void HaineManager::scoatereHaina(int nr){
+
+    Haina h = getHaine().find(nr)->second;
+    h.setDisponibilitate(false);
+    h.setNrPurtari(h.getNrPurtari()+1);
+    stergereHaina(getHaine().find(nr)->second);
+    introducereHaina(h);
 }
 void HaineManager::reintroducereHaina(int nr){
 
