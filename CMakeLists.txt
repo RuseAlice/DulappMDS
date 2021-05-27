@@ -30,6 +30,10 @@ add_executable(tests Main/tests.cpp
 
         Services/DulapManager.h
         Services/DulapManager.cpp
+        Services/HaineManager.h
+        Services/HaineManager.cpp
+        Services/SearchEngine.h
+        Services/SearchEngine.cpp
         )
 
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain Threads::Threads)
